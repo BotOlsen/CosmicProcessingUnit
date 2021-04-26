@@ -1,5 +1,5 @@
 # VerilogCPU
-The goal of this project is to design and simulate a CPU with a custom ISA. The instruction set architecture being implemented is below as follows:
+(VIEW RAW FILE FOR FORMAT TO BE PROPER) The goal of this project is to design and simulate a CPU with a custom ISA. The instruction set architecture being implemented is below as follows:
 
 Function                      Syntax                OpCode      Op1         Op2           Function Code      Type       Operation
 --------                      ------                ------      ---         ---           -------------      -----      ---------
