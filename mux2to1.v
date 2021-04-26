@@ -1,7 +1,7 @@
  /*
   * Date: 4-25-2021
   * Author: Ramsey Alahmad
-  * Name: Mux2to1
+  * Name: mux2to1
   * About: Multiplexor where if the switch is 0, the output is assigned to be input1, vice-versa.
   */
   
