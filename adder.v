@@ -6,8 +6,8 @@
 
 module adder 
 (
-    input signed [15:0] A, B, 
-    output reg signed [15:0] sum
+    input [15:0] A, B, 
+    output reg [15:0] sum
 );
     always @(*)
     begin
