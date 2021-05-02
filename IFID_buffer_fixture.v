@@ -5,7 +5,7 @@
  */
 
 `include "stage_buffer.v"
-module IFED_register_fixture;
+module IFID_register_fixture;
 
 reg clk, rst, write;
 reg  [15:0] IF_adderOutput;
