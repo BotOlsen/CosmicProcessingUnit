@@ -1,4 +1,4 @@
-`include "stage_register.v"
+`include "stage_buffer.v"
 module IFED_register_fixture;
 
 reg clk, rst, write;

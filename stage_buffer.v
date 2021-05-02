@@ -1,7 +1,7 @@
 /*
  * Date: 4-25-2021
  * Author: Daniel Olsen
- * Name: stage_register
+ * Name: stage_buffer
  */
 
 module register #(parameter SIZE = 16) 
