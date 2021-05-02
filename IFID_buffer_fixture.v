@@ -1,9 +1,18 @@
+/*
+ * Date: 4-25-2021
+ * Author: Daniel Olsen
+ * Name: IFID_buffer_fixture
+ */
+
 `include "stage_buffer.v"
 module IFED_register_fixture;
 
 reg clk, rst, write;
-reg  [15:0] adderIn;
-reg [15:0] instructionIn;
+reg  [15:0] IF_adderOutput;
+reg [15:0] IF_instructionMemoryOutput;
+
+// dataout[31:16] = IF_adderOutput
+// dataout[15:0] = IF_instructionMemoryOutput
 wire [31:0] dataout;
 
 
@@ -11,11 +20,11 @@ initial
 	$vcdpluson;
 
 initial 
-	$monitor ($time, " adder input = %h Instruction Memory input = %h w_enable %b Dataout = %h", adderIn, instructionIn, write,  dataout);
+	$monitor ($time, " IF Adder output = %h    Instruction Memory output = %h    w_enable %b    Buffer Output = %h    ", IF_adderOutput, IF_instructionMemoryOutput, write,  dataout);
 	
 
 register #(.SIZE(32)) IFIDRegister (
-        .in({adderIn, instructionIn}),
+        .in({IF_adderOutput, IF_instructionMemoryOutput}),
         .writeEnable(write),        
         .clk(clk),
         .flush(rst),
@@ -37,15 +46,15 @@ end
 initial 
 begin
 
-	adderIn = 32'h00000000; write = 1'b0; instructionIn = 16'habab;
-	@(posedge clk); adderIn = 16'habab; write = 1'b0; instructionIn = 16'habab;
-	@(posedge clk); adderIn = 16'hdddd; write = 1'b0; instructionIn = 16'habab;
-	@(posedge clk); adderIn = 16'habab; write = 1'b1; instructionIn = 16'habab;
-	@(posedge clk); adderIn = 16'hffff; write = 1'b0; instructionIn = 16'habab;
-	@(posedge clk); adderIn = 16'habab; write = 1'b1; instructionIn = 16'habab;
-	@(posedge clk); adderIn = 16'hdada; write = 1'b1; instructionIn = 16'habab;
-	@(posedge clk); adderIn = 16'h1278; write = 1'b1; instructionIn = 16'habab;
-	@(posedge clk); adderIn = 16'habab; write = 1'b0; instructionIn = 16'habab;
+	IF_adderOutput = 32'h00000000; write = 1'b0; IF_instructionMemoryOutput = 16'habab;
+	@(posedge clk); IF_adderOutput = 16'habab; write = 1'b0; IF_instructionMemoryOutput = 16'habab;
+	@(posedge clk); IF_adderOutput = 16'hdddd; write = 1'b0; IF_instructionMemoryOutput = 16'habab;
+	@(posedge clk); IF_adderOutput = 16'habab; write = 1'b1; IF_instructionMemoryOutput = 16'hab46;
+	@(posedge clk); IF_adderOutput = 16'hffff; write = 1'b0; IF_instructionMemoryOutput = 16'hab78;
+	@(posedge clk); IF_adderOutput = 16'habab; write = 1'b1; IF_instructionMemoryOutput = 16'ha45b;
+	@(posedge clk); IF_adderOutput = 16'hdada; write = 1'b1; IF_instructionMemoryOutput = 16'h789b;
+	@(posedge clk); IF_adderOutput = 16'h1278; write = 1'b1; IF_instructionMemoryOutput = 16'haba1;
+	@(posedge clk); IF_adderOutput = 16'habab; write = 1'b0; IF_instructionMemoryOutput = 16'h9876;
   
     #10     $finish;
 
