@@ -4,7 +4,11 @@
  * Name: alu_control
  */
 
-module alu_control(input [1:0] aluControlOp, input [3:0] functionCode, output reg [2:0] aluOp);
+module alu_control(
+    input [1:0] aluControlOp, 
+    input [3:0] functionCode, 
+    output reg [2:0] aluOp
+);
 
 reg [31:0] temp;
 
