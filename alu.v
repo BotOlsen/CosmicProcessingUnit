@@ -6,8 +6,6 @@
 
 module alu(input [15:0] A, B, input [2:0] CTRL, output reg [15:0] result, overflow);
 
-reg [31:0] temp;
-
 	always @(*)
 	begin
 			
