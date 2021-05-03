@@ -12,7 +12,6 @@ module sign_extend
 
     always @(*)
     begin
-
         casex (instruction[15:12])
             4'b1XXX: if(instruction[3] == 1'b0)
                         signExtendedImmediate = {12'h000, instruction[3:0]};
@@ -29,8 +28,5 @@ module sign_extend
             default: signExtendedImmediate = {16'b0};               
         
         endcase
-
-
-
     end
 endmodule
