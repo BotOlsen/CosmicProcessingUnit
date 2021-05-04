@@ -32,7 +32,7 @@ begin
         registerFile[7] <= 16'h00FF;
         registerFile[8] <= 16'hFF88;
         registerFile[9] <= 16'h0000;
-        registerFIle[10] <= 16'h0000;
+        registerFile[10] <= 16'h0000;
         registerFile[11] <= 16'h3099;
         registerFile[12] <= 16'hCCCC;
         registerFile[13] <= 16'h0002;
@@ -49,3 +49,4 @@ begin
         registerFile[0] <= r0Write;
     end
 end
+endmodule
