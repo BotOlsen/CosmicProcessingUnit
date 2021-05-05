@@ -4,7 +4,9 @@
  * Name: alu
  */
 
-module alu(input [15:0] A, B, input [2:0] CTRL, output reg [15:0] result, overflow);
+module alu(
+    input [15:0] A, B, input [2:0] CTRL, output reg [15:0] result, overflow
+);
 
 	always @(*)
 	begin
