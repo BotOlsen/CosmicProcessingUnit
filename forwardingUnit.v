@@ -30,14 +30,14 @@ module forwardingUnit(
         else
             Op2Fwd = 2'b00;
 
-        if(exW[1] == 2'b1X)
+        if(exW[1] == 1'b1)
             R0Fwd = 2'b01;
-        else if(mW[1] == 2'b1X)
+        else if(mW[1] == 1'b1)
             R0Fwd = 2'b10;
-        else if(wbW[1] == 2'b1X)
+        else if(wbW[1] == 1'b1)
             R0Fwd = 2'b11;
         else 
-            R0Fwd = 1'b00;    
+            R0Fwd = 2'b00;    
 
     end
 endmodule
