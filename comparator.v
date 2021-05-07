@@ -19,20 +19,21 @@ module comparator(
                         if(op1 < r0)
                             PCSrc = 1'b1;
                         else
-                            PCSrc = 0'b0;    
+                            PCSrc = 1'b0;    
                     end
             3'b010: begin           //BGT
                         if(op1 > r0)
                             PCSrc = 1'b1;
                         else
-                            PCSrc = 0'b0; 
+                            PCSrc = 1'b0; 
                     end
             3'b011: begin           //BEQ
                         if(op1 == r0)
                             PCSrc = 1'b1;
                         else
-                            PCSrc = 0'b0; 
+                            PCSrc = 1'b0; 
                     end                                                    
-            default: PCSrc = 0'b0;
+            default: PCSrc = 1'b0;
+        endcase
 	end
 endmodule
