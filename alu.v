@@ -16,16 +16,16 @@ module alu(
 			3'b000: result = A + B;
 			3'b001: result = A - B;
 			3'b010: {overflow, result} = A * B;
-            	3'b011: begin
-                        result = A / B;
-                        overflow = A % B;
-                end
-		3'b100: result = A & B;
-            	3'b101: result = A | B;
-            	default: begin
-                        result = 16'b0;
-                        overflow = 16'b0;
-                end
+            3'b011: begin
+                    result = A / B;
+                    overflow = A % B;
+            end
+			3'b100: result = A & B;
+            3'b101: result = A | B;
+            default: begin
+                    result = 16'b0;
+                    overflow = 16'b0;
+            end
         endcase
 	end
 endmodule
