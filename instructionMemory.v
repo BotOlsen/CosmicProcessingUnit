@@ -7,9 +7,9 @@
 
 module instructionMemory
 (
-    input clk, reset_n, inputAddress,
+    input clk, reset_n, //inputAddress,
     input [7:0] address,
-    input [15:0] value,
+    //input [15:0] value,
     output reg [15:0] data
 );
 
@@ -17,8 +17,8 @@ reg [7:0] memory [0:255];
 reg [15:0] memoryValue;
 integer index;
 
-always@(posedge clk, negedge reset_n, address)
-    
+always@(posedge clk, negedge reset_n)
+begin    
     if(!reset_n)
     begin
         memory [0] <= 8'h21; // ADD
@@ -88,13 +88,20 @@ always@(posedge clk, negedge reset_n, address)
         begin
             memory [index] <= 8'h0;
         end
-     end
-        if(inputAddress)
-        begin
-            {memory[address], memory[address+1]} = value;
-            memoryValue <= {memory[address], memory[address+1]}; 
-        end
-        else
-            data <= memoryValue;           
     end
+    else
+    begin
+        //{memory[address], memory[address+1]} = value;
+        memoryValue <= {memory[address], memory[address+1]}; 
+    end
+           
+end
+
+always@(*)
+begin
+    data <= memoryValue;
+end
+
+
+
 endmodule 
