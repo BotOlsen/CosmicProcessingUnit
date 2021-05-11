@@ -21,6 +21,10 @@ initial
     $monitor($time, " clk = %b, reset_n = %b, \n\t\t address = %h, data =%h", clk, reset_n, address,  data);
 
 
+instructionMemory u1(.clk(clk), .reset_n(reset_n), .address(address), .data(data));
+
+
+
 initial
 begin
     clk = 1'b0;
