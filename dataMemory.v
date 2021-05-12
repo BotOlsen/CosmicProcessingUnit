@@ -36,13 +36,17 @@ begin
         for(i = 10; i <= 255; i = i+1) // sets all other addresses to be 0 
             memoryData[i] <= 8'h00;
     end
-
-    if(memoryWrite) // concatenation 
+    else if(memoryWrite) // concatenation 
         {memoryData[address], memoryData[address+1]} <= dataWrite;
     
-    if(memoryRead) // takes the concatenation and places them in data read 
-        dataRead <= {memoryData[address], memoryData[address+1]};
+    // if(memoryRead) // takes the concatenation and places them in data read 
+    //     dataRead <= {memoryData[address], memoryData[address+1]};
+end
 
+always@(*)
+begin
+    if(memoryRead) // takes the concatenation and places them in data read 
+        dataRead = {memoryData[address], memoryData[address+1]};
 end
 
 endmodule
