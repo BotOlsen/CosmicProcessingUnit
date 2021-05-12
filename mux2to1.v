@@ -14,6 +14,6 @@ module mux2to1
 );
 always@(*)
 begin
-     switch == 1'b1 ? out = input2 : out = input1;
+     out = (switch == 1'b1) ? input2 : input1;
 end
 endmodule
