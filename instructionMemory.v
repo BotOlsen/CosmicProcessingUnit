@@ -92,7 +92,7 @@ begin
     else
     begin
         //{memory[address], memory[address+1]} = value;
-        memoryValue <= {memory[address], memory[address+1]}; 
+        memoryValue <= {memory[address+1], memory[address]}; 
     end
            
 end
