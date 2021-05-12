@@ -9,7 +9,7 @@ module control
 (
     input [1:0] multiDiv,
     input [3:0] opcode,
-    output reg aluBType, aluSrc, signExtendFlag, memRead, memToReg, memWrite,
+    output reg aluBType, aluSrc, zeroExtendFlag, memRead, memToReg, memWrite,
     output reg [1:0] aluControlOp, regWrite, jumpBranch
 );
 
@@ -22,7 +22,7 @@ begin
            aluBType = 1'b0;
            aluSrc = 1'b0;
            aluControlOp = 2'b00;
-           signExtendFlag = 1'b0;
+           zeroExtendFlag = 1'b0;
            memRead = 1'b0;
            memToReg = 1'b0;
            memWrite = 1'b0;
@@ -39,7 +39,7 @@ begin
             aluSrc = 1'b1;
             aluControlOp = 2'b01;
             regWrite = 2'b01;
-            signExtendFlag = 1'b0;
+            zeroExtendFlag = 1'b0;
             memRead = 1'b0;
             memToReg = 1'b0;
             memWrite = 1'b0;
@@ -52,7 +52,7 @@ begin
             aluSrc = 1'b1;
             aluControlOp = 2'b11;
             regWrite = 2'b01;
-            signExtendFlag = 1'b0;
+            zeroExtendFlag = 1'b0;
             memRead = 1'b0;
             memToReg = 1'b0;
             memWrite = 1'b0;
@@ -65,7 +65,7 @@ begin
             aluSrc = 1'b1;
             aluControlOp = 2'b10;
             regWrite = 2'b00;
-            signExtendFlag = 1'b1;
+            zeroExtendFlag = 1'b1;
             memRead = 1'b1;
             memToReg = 1'b1;
             memWrite = 1'b0;
@@ -78,7 +78,7 @@ begin
             aluSrc = 1'b1;
             aluControlOp = 2'b10;
             regWrite = 2'b01;
-            signExtendFlag = 1'b0;
+            zeroExtendFlag = 1'b0;
             memRead = 1'b0;
             memToReg = 1'bx; // dont care (please check this)
             memWrite = 1'b1; 
@@ -91,7 +91,7 @@ begin
             aluSrc = 1'b1;
             aluControlOp = 2'b10;
             regWrite = 2'b00;
-            signExtendFlag = 1'b0;
+            zeroExtendFlag = 1'b0;
             memRead = 1'b1;
             memToReg = 1'b1;
             memWrite = 1'b0; 
@@ -104,7 +104,7 @@ begin
             aluSrc = 1'b1;
             aluControlOp = 2'b10;
             regWrite = 2'b01;
-            signExtendFlag = 1'b0;
+            zeroExtendFlag = 1'b0;
             memRead = 1'b0;
             memToReg = 1'bx; // dont care (please check this)
             memWrite = 1'b1; 
@@ -117,7 +117,7 @@ begin
             aluSrc = 1'bx; // ^ 
             aluControlOp = 2'bxx; // ^ 
             regWrite = 2'b00; 
-            signExtendFlag = 1'bx;
+            zeroExtendFlag = 1'bx;
             memRead = 1'b0;
             memToReg = 1'bx;
             memWrite = 1'b0;
@@ -130,7 +130,7 @@ begin
             aluSrc = 1'bx;
             aluControlOp = 2'bxx;
             regWrite = 2'b00;
-            signExtendFlag = 1'bx;
+            zeroExtendFlag = 1'bx;
             memRead = 1'b0;
             memToReg = 1'bx;
             memWrite = 1'b0;
@@ -143,7 +143,7 @@ begin
            aluSrc = 1'bx;
            aluControlOp = 2'bxx;
            regWrite = 2'b00;
-           signExtendFlag = 1'bx;
+           zeroExtendFlag = 1'bx;
            memRead = 1'b0;
            memToReg = 1'bx;
            memWrite = 1'b0;
@@ -156,7 +156,7 @@ begin
              aluSrc = 1'bx;
              aluControlOp = 2'bxx;
              regWrite = 2'b00;
-             signExtendFlag = 1'bx;
+             zeroExtendFlag = 1'bx;
              memRead = 1'b0;
              memToReg = 1'bx;
              memWrite = 1'b0;
@@ -169,7 +169,7 @@ begin
             aluSrc = 1'b0;
             aluControlOp = 2'b00;
             regWrite = 2'b00;
-            signExtendFlag = 1'b0;
+            zeroExtendFlag = 1'b0;
             memRead = 1'b0;
             memToReg = 1'b0;
             memWrite = 1'b0;
