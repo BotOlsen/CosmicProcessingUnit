@@ -16,11 +16,10 @@ module stage_buffer #(parameter SIZE = 16)
     always @ ( posedge clk, negedge flush)
     begin
         if(!flush)
-            out <= {SIZE{1'b0}};
-        else
         begin
-            if(writeEnable)
-                out <= in;
-        end    
+            out <= {SIZE{1'b0}};
+        end
+        else if(writeEnable)
+                out <= in;    
     end
 endmodule
