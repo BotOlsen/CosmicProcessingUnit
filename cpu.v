@@ -97,7 +97,7 @@ mux4to1 Register0SourceMux(
 
 mux4to1 rd1SourceMux(
         .switch(2'b00),                            //Add later, output of OFrwarding UNnit (Op1Fwd)
-        .input1(reg0Read),
+        .input1(rd1Read),
         .input2(ALUOutput), 
         .input3(EXM_Output[51:36]),                       //M Stage ALU OUTPUT
         .input4(MemToRegMuxOutput),                 //WB STAGE ALU OUTPUT
@@ -106,7 +106,7 @@ mux4to1 rd1SourceMux(
 
 mux4to1 rd2SourceMux(
         .switch(2'b00),                            //Add later, output of OFrwarding UNnit (Op2Fwd)
-        .input1(reg0Read),
+        .input1(rd2Read),
         .input2(ALUOutput),                        //EX STAGE ALU OUTPUT
         .input3(EXM_Output[51:36]),                       //M Stage ALU OUTPUT
         .input4(MemToRegMuxOutput),                 //WB STAGE ALU OUTPUT
