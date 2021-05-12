@@ -34,6 +34,44 @@ module cpu(
     output [54:0] MWB_Output /* [3:0] WBRegDest, [19:4] ALUOverflowOutput, [35:20] DataMemoryOutputMuxResult, [51:36] ALUOutput, [52] memToReg, [54:53]RegWrite*/
 );
 
+assign EXALUBType = IDEX_Output[52];
+
+        
+stage_buffer #(.SIZE(32)) IFID (
+        .in({IFAdderOutput, Instruction}),
+        .writeEnable(1'b1),             
+        .clk(clk),
+        .flush(reset_n),
+        .out(IFID_Output)       
+        );
+
+/*[3:0] MRegDest, [19:4] DataToWrite, [35:20] ALUOverflowOutput, [51:36] ALUOutput, [52] MemRead, [53] MemWrite, [54] zeroExtendFlag, [55] memToReg, [57:56] RegWrite*/
+stage_buffer #(.SIZE(58)) EXM (
+        .in({IDEX_Output[61:60], IDEX_Output[59], IDEX_Output[58], IDEX_Output[57], IDEX_Output[56], ALUOutput, ALUOverflowOutput, IDEX_Output[51:36], IDEX_Output[65:62]}),
+        .writeEnable(1'b1),             
+        .clk(clk),
+        .flush(reset_n),
+        .out(EXM_Output)       
+        );      
+
+stage_buffer #(.SIZE(55)) MWB (
+        .in({ EXM_Output[57:56], EXM_Output[55], EXM_Output[51:36], DataMemoryOutputMuxResult, EXM_Output[35:20], EXM_Output[3:0]}),
+        .writeEnable(1'b1),             
+        .clk(clk),
+        .flush(reset_n),
+        .out(MWB_Output)       
+        );
+
+/*[3:0] Function Code, [19:4] signExtendedImmediate, [35:20] rd2SrcMuxOutput, [51:36]rd1SrcMuxOutput, [52] ALUBType, [53] ALUSrc, [55:54] ALUControlOp}
+                                [56] MemRead, [57] MemWrite, [58] zeroExtendFlag, [59] memToReg, [61:60] RegWrite, [65:62]EXRegDest*/
+stage_buffer #(.SIZE(66)) IDEX (
+        .in({IFID_Output[11:8], SignalFlushMuxOutput, rd1SrcMuxOutput, rd2SrcMuxOutput, signExtendedImmediate, IFID_Output[3:0]}),
+        .writeEnable(1'b1),             
+        .clk(clk),
+        .flush(reset_n),
+        .out(IDEX_Output)       
+        );        
+
 //Instantiation of IF Stage
 adder IFAdder(
     .A(PCOutput),
@@ -62,14 +100,6 @@ instructionMemory IM(
     .address(PCOutput),
     .data(Instruction)
 );
-
-stage_buffer #(.SIZE(32)) IFID (
-        .in({IFAdderOutput, Instruction}),
-        .writeEnable(1'b1),             
-        .clk(clk),
-        .flush(reset_n),
-        .out(IFID_Output)       
-        );
 
 //Instantiation of ID Stage
 register RegisterFile(
@@ -157,19 +187,9 @@ mux2to1 #(.SIZE(10)) SignalFlushMux (
         .out(SignalFlushMuxOutput)
 );
 
-/*[3:0] Function Code, [19:4] signExtendedImmediate, [35:20] rd2SrcMuxOutput, [51:36]rd1SrcMuxOutput, [52] ALUBType, [53] ALUSrc, [55:54] ALUControlOp}
-                                [56] MemRead, [57] MemWrite, [58] zeroExtendFlag, [59] memToReg, [61:60] RegWrite, [65:62]EXRegDest*/
-stage_buffer #(.SIZE(66)) IDEX (
-        .in({IFID_Output[11:8], SignalFlushMuxOutput, rd1SrcMuxOutput, rd2SrcMuxOutput, signExtendedImmediate, IFID_Output[3:0]}),
-        .writeEnable(1'b1),             
-        .clk(clk),
-        .flush(reset_n),
-        .out(IDEX_Output)       
-        );
-
 //Instantiation of EX Stage
 mux2to1 ALUSource1Mux (
-        .switch(IDEX_Output[52]),                      
+        .switch(EXALUBType),                      
         .input1(IDEX_Output[51:36]),
         .input2(IDEX_Output[19:4]),
         .out(ALUSource1MuxOutput)
@@ -196,16 +216,6 @@ alu ALU(
     .overflow(ALUOverflowOutput)
 );
 
-
-/*[3:0] MRegDest, [19:4] DataToWrite, [35:20] ALUOverflowOutput, [51:36] ALUOutput, [52] MemRead, [53] MemWrite, [54] zeroExtendFlag, [55] memToReg, [57:56] RegWrite*/
-stage_buffer #(.SIZE(58)) EXM (
-        .in({IDEX_Output[61:60], IDEX_Output[59], IDEX_Output[58], IDEX_Output[57], IDEX_Output[56], ALUOutput, ALUOverflowOutput, IDEX_Output[51:36], IDEX_Output[65:62]}),
-        .writeEnable(1'b1),             
-        .clk(clk),
-        .flush(reset_n),
-        .out(EXM_Output)       
-        );
-
 //Instantiation of M Stage
 dataMemory DataMemory(
         .clk(clk),
@@ -229,13 +239,7 @@ mux2to1 DataMemoryOutputMux(
         .out(DataMemoryOutputMuxResult)
 );
 
-stage_buffer #(.SIZE(55)) MWB (
-        .in({ EXM_Output[57:56], EXM_Output[55], EXM_Output[51:36], DataMemoryOutputMuxResult, EXM_Output[35:20], EXM_Output[3:0]}),
-        .writeEnable(1'b1),             
-        .clk(clk),
-        .flush(reset_n),
-        .out(MWB_Output)       
-        );
+
 
 //Instantiation of WB Stage
 mux2to1 MemToRegMux(
