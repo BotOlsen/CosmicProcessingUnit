@@ -9,11 +9,13 @@
 
 module cpu(
     input clk, reset_n,
-    output [15:0] PCOutput, IFAdderOutput
+    output [15:0] PCOutput, IFAdderOutput,
+    output pcWrite
 );
 
-assign PCOutput = 0;
-assign IFAdderOutput = 0;
+//assign PCOutput = 0;
+//assign IFAdderOutput = 0;
+assign pcWrite = 1;
 
 adder IFAdder(
     .A(PCOutput),
@@ -24,10 +26,9 @@ adder IFAdder(
 programCounter PC(
     .reset_n(reset_n),
     .clock(clk),
-    .pcWrite(1'b1),
+    .pcWrite(pcWrite),
     .inputAddress(IFAdderOutput),
     .outputAddress(PCOutput)
 );
-
 
 endmodule
