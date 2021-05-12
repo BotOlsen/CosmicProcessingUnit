@@ -10,7 +10,8 @@ module control
     input [1:0] multiDiv,
     input [3:0] opcode,
     output reg aluBType, aluSrc, zeroExtendFlag, memRead, memToReg, memWrite,
-    output reg [1:0] aluControlOp, regWrite, jumpBranch
+    output reg [1:0] aluControlOp, regWrite, 
+    output reg [2:0] jumpBranch
 );
 
 always@(*)
