@@ -7,36 +7,27 @@
 `include "adder.v"
 `include "programCounter.v"
 
-`define WORD_SIZE 16
-
 module cpu(
     input clk, reset_n,
-    output [15:0] IFAdderOutput, PCOutput
+    output [15:0] PCOutput, IFAdderOutput
 );
 
-    //Instruction Fetch
-    //wire [15:0] PCOutput;
-    //output [15:0] InstructionMemoryOutput;
-    //wire [15:0] IFadderOutput;
-    
+assign PCOutput = 0;
+assign IFAdderOutput = 0;
 
-    assign PCOutput = {`WORD_SIZE{1'b0}};
-    assign IFAdderOutput = {`WORD_SIZE{1'b0}};
+adder IFAdder(
+    .A(PCOutput),
+    .B(16'h0002),
+    .sum(IFAdderOutput)
+);
 
-    adder IFadder(
-        .A(PCOutput), 
-        .B(16'h0002), 
-        .sum(IFadderOutput)
-        );
+programCounter PC(
+    .reset_n(reset_n),
+    .clock(clk),
+    .pcWrite(1'b1),
+    .inputAddress(IFAdderOutput),
+    .outputAddress(PCOutput)
+);
 
-    programCounter ProgramCounter(
-        .reset(reset_n),
-        .clock(clk),
-        .pcWrite(1'b1),
-        .inputAddress(IFAdderOutput),
-        .outputAddress(PCOutput)
-    );
-
-    
 
 endmodule
