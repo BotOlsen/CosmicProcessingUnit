@@ -9,8 +9,7 @@ module stage_buffer #(parameter SIZE = 16)
 	input [SIZE-1:0] in,
 	input writeEnable,  
 	output reg [SIZE-1:0] out,
-	input clk,
-	input flush 
+	input clk, flush 
 );
 
     always @ ( posedge clk, negedge flush)
