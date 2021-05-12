@@ -17,8 +17,8 @@ cpu cpu_test(.clk(clk), .reset_n(reset_n), .PCOutput(PCOutput), .IFAdderOutput(I
 
 initial
 begin
-    clk = 1'b1;
-    forever #10 clk = ~clk;
+    clk = 1'b0;
+    forever #20 clk = ~clk;
 end
 
 initial
@@ -30,7 +30,7 @@ end
 
 initial
 begin
-    #100 $finish;
+    #180 $finish;
 end 
 
 endmodule
