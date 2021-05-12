@@ -12,16 +12,16 @@ module control_fixture;
 
 reg multiDiv;
 reg [3:0] opcode;
-wire aluBType, aluSrc, signChange, memRead, memToReg, memWrite;
+wire aluBType, aluSrc, signExtendFlag, memRead, memToReg, memWrite;
 wire [1:0] aluControl, regWrite, jumpBranch;
 
 initial
     $vcdpluson;
 
 initial 
-    $monitor($time, " opcode = %b multiDiv = %b, \n\t\t aluBType = %b, aluSrc = %b, signChange = %b, memRead = %b, memToReg = %b, memWrite = %b, \n\t\t aluControl = %b, regWrite = %b, jumpBranch = %b ", opcode, multiDiv, aluBType, aluSrc, signChange, memRead, memToReg, memWrite, aluControl, regWrite, jumpBranch);
+    $monitor($time, " opcode = %b multiDiv = %b, \n\t\t aluBType = %b, aluSrc = %b, signExtendFlag = %b, memRead = %b, memToReg = %b, memWrite = %b, \n\t\t aluControl = %b, regWrite = %b, jumpBranch = %b ", opcode, multiDiv, aluBType, aluSrc, signExtendFlag, memRead, memToReg, memWrite, aluControl, regWrite, jumpBranch);
  
- control u1 (.opcode(opcode), .multiDiv(multiDiv), .aluBType(aluBType), .aluSrc(aluSrc), .signChange(signChange), .memRead(memRead), .memToReg(memToReg), .memWrite(memWrite), .aluControl(aluControl), .regWrite(regWrite), .jumpBranch(jumpBranch));
+ control u1 (.opcode(opcode), .multiDiv(multiDiv), .aluBType(aluBType), .aluSrc(aluSrc), .signExtendFlag(signExtendFlag), .memRead(memRead), .memToReg(memToReg), .memWrite(memWrite), .aluControl(aluControl), .regWrite(regWrite), .jumpBranch(jumpBranch));
 
 
  initial
