@@ -7,7 +7,7 @@
 
 module control
 (
-    input multiDiv,
+    input [1:0] multiDiv,
     input [3:0] opcode,
     output reg aluBType, aluSrc, signExtend, memRead, memToReg, memWrite,
     output reg [1:0] aluControlOp, regWrite, jumpBranch
@@ -27,7 +27,7 @@ begin
            memToReg = 1'b0;
            memWrite = 1'b0;
            jumpBranch = 3'b000;
-            if(multiDiv) // if type A AND appears to be multi/division
+            if(multiDiv[1] == 1'b1 || multiDiv[0] == 1'b1) // if type A AND appears to be multi/division
                  regWrite = 2'b11;
             else // add/sub
                 regWrite = 2'b01;
