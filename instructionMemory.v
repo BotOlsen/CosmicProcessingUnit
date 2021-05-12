@@ -88,12 +88,7 @@ begin
         begin
             memory [index] <= 8'h0;
         end
-    end
-    // else
-    // begin
-    //     //{memory[address], memory[address+1]} = value;
-    //     memoryValue <= {memory[address+1], memory[address]}; 
-    // end
+    end          
 end
 
 always@(*)

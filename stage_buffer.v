@@ -4,7 +4,7 @@
  * Name: stage_buffer
  */
 
-module register #(parameter SIZE = 16) 
+module stage_buffer #(parameter SIZE = 16) 
 (
 	input [SIZE-1:0] in,
 	input writeEnable,  

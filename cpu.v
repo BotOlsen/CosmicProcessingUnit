@@ -7,10 +7,12 @@
 `include "adder.v"
 `include "programCounter.v"
 `include "instructionMemory.v"
+`include "stage_buffer.v"
 
 module cpu(
     input clk, reset_n,
-    output [15:0] PCOutput, IFAdderOutput, Instruction
+    output [15:0] PCOutput, IFAdderOutput, Instruction, 
+    output [31:0] IFID_Output //bits [31:16] IFAdderOutput, bits[15:0] Instruction Output
 
 );
 
@@ -38,5 +40,15 @@ instructionMemory IM(
     .address(PCOutput),
     .data(Instruction)
 );
+
+stage_buffer #(.SIZE(32)) IFID (
+        .in({IFAdderOutput, Instruction}),
+        .writeEnable(1'b1),        
+        .clk(clk),
+        .flush(reset_n),
+        .out(IFID_Output)       
+        );
+
+
 
 endmodule
