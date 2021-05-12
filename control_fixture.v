@@ -10,7 +10,7 @@
 
 module control_fixture;
 
-reg multiDiv;
+reg [1:0] multiDiv;
 reg [3:0] opcode;
 wire aluBType, aluSrc, zeroExtendFlag, memRead, memToReg, memWrite;
 wire [1:0] aluControl, regWrite, jumpBranch;
