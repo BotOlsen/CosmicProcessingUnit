@@ -22,10 +22,13 @@ module cpu(
     output [1:0] aluControlOp, regWrite, 
     output [2:0] jumpBranch,
     output [15:0] PCOutput, IFAdderOutput, Instruction, rd1Read, rd2Read, reg0Read, signExtendedImmediate, ShiftResult, IDAdderOutput,
-    output [31:0] IFID_Output /*bits [31:16] IFAdderOutput, bits[15:0] Instruction Output*/
+    output [31:0] IFID_Output /*[31:16] IFAdderOutput, [15:0] Instruction Output*/
+    output [61:0] IDEX_Output /*[3:0] Function Code, [19:4] signExtendedImmediate, [35:20] rd2SrcMuxOutput, [51:36]rd1SrcMuxOutput, [52] ALUBType, [53] ALUSrc, [55:54] ALUControlOp}
+                                [56] MemRead, [57] MemWrite, [58] zeroExtendFlag, [59] memToReg, [60:61] RegWrite*/
 );
 
 wire [15:0] PCSourceMuxOutput;
+wire [9:0] SignalFlushMuxOutput;
 
 //Instantiation of IF Stage
 adder IFAdder(
@@ -141,5 +144,29 @@ control ControlUnit(
     .jumpBranch(jumpBranch)
 );
 
+mux2to1 #(.SIZE(10)) SignalFlushMux (
+        .switch(1'b0),                      
+        .input1({regWrite, memToReg, zeroExtendFlag, memWrite, memRead, aluControlOp, aluSrc, aluBType}),
+        .input2(10'b0),
+        .out(SignalFlushMuxOutput)
+);
+
+/*[3:0] Function Code, [19:4] signExtendedImmediate, [35:20] rd2SrcMuxOutput, [51:36]rd1SrcMuxOutput, [52] ALUBType, [53] ALUSrc, [55:54] ALUControlOp}
+                                [56] MemRead, [57] MemWrite, [58] zeroExtendFlag, [59] memToReg, [61:60] RegWrite*/
+stage_buffer #(.SIZE(62)) IDEX (
+        .in({SignalFlushMuxOutput, rd1SrcMuxOutput, rd2SrcMuxOutput, signExtendedImmediate, IFID_Output[3:0]}),
+        .writeEnable(1'b1),             
+        .clk(clk),
+        .flush(reset_n),
+        .out(IDEX_Output)       
+        );
+
+//Instantiation of EX Stage
+mux2to1 ALUSource1Mux (
+        .switch(aluBType),                      
+        .input1(IFAdderOutput),
+        .input2(IDAdderOutput),
+        .out(PCSourceMuxOutput)
+);
 
 endmodule
