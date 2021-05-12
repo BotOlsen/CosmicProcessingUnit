@@ -17,7 +17,8 @@ module cpu_fiixture;
 
 always@(negedge clk)
 begin
-    $display($time, "----------IF Stage-------------\nIFAdderOutput: %h\tPCSourceMuxOutput: %h\t PCOutput: %h\tInstruction: %h\n\n", IFAdderOutput, PCSourceMuxOutput, PCOutput, Instruction);
+    $display($time, " Time   -------------------------------------------------------------------------------------------------------------------");
+    $display("----------IF Stage-------------\nIFAdderOutput: %h\tPCSourceMuxOutput: %h\t PCOutput: %h\tInstruction: %h\n\n", IFAdderOutput, PCSourceMuxOutput, PCOutput, Instruction);
     $display("----------ID Stage-------------\nIFID_Output: %h\tRegister0SourceMuxOutput: %h\t rd1SrcMuxOutput: %h\trd2SrcMuxOutput: %h\tPCSrc: %b\taluBType: %b\taluSrc: %b\tzeroExtendFlag: %b\tmemRead: %b\tmemToReg: %b\tmemWrite: %b\taluControlOp: %b\tregWrite: %b\tjumpBranch: %b\n\n",  IFID_Output, Register0SourceMuxOutput, rd1SrcMuxOutput, rd2SrcMuxOutput, PCSrc, aluBType, aluSrc, zeroExtendFlag, memRead, memToReg, memWrite, aluControlOp, regWrite, jumpBranch);
     //$display("----------EX Stage-------------\nIFID_Output: %h\tRegister0SourceMuxOutput: %h\t rd1SrcMuxOutput: %h\trd2SrcMuxOutput: %h\tPCSrc: %b\taluBType: %b\taluSrc: %b\tzeroExtendFlag: %b\tmemRead: %b\tmemToReg: %b\tmemWrite: %b\taluControlOp: %b\tregWrite: %b\tjumpBranch: %b\n\n",  IFID_Output, Register0SourceMuxOutput, rd1SrcMuxOutput, rd2SrcMuxOutput, PCSrc, aluBType, aluSrc, zeroExtendFlag, memRead, memToReg, memWrite, aluControlOp, regWrite, jumpBranch);
 end
