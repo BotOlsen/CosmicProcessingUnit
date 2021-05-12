@@ -4,7 +4,7 @@
 module cpu_fiixture;
 
 reg clk, reset_n;
-wire [15:0] PCOutput, IFAdderOutput, Instruction, rd1Read, rd2Read, reg0Read;
+wire [15:0] PCOutput, IFAdderOutput, Instruction, rd1Read, rd2Read, reg0Read, MemToRegMuxOutput;
 wire [31:0] IFID_Output;
 
 
@@ -19,8 +19,7 @@ end*/
 
 initial
 begin
-    $display("ID OUTPUTS---------------------------------------------------------------------------------------------------------------------------------------------");
-	$monitor($time, "  IFID_Output: %h\trd1Read: %h\trd2Read: %h\treg0Read: %h", IFID_Output, rd1Read, rd2Read, reg0Read);
+	$monitor($time, "Write Data: ", );
 end
 
 

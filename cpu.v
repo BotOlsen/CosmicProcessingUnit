@@ -25,7 +25,7 @@ module cpu(
     output PCSrc, aluBType, aluSrc, zeroExtendFlag, memRead, memWrite, memToReg, 
     output [1:0] aluControlOp, regWrite, 
     output [2:0] jumpBranch, aluOp,
-    output [15:0] PCOutput, IFAdderOutput, Instruction, rd1Read, rd2Read, reg0Read, signExtendedImmediate, ShiftResult, IDAdderOutput,
+    output [15:0] PCOutput, IFAdderOutput, Instruction, rd1Read, rd2Read, reg0Read, signExtendedImmediate, ShiftResult, IDAdderOutput, MemToRegMuxOutput,
     output [31:0] IFID_Output, /*[31:16] IFAdderOutput, [15:0] Instruction Output*/
     output [65:0] IDEX_Output, /*[3:0] Function Code, [19:4] signExtendedImmediate, [35:20] rd2SrcMuxOutput, [51:36]rd1SrcMuxOutput, [52] ALUBType, [53] ALUSrc, [55:54] ALUControlOp}
                                 [56] MemRead, [57] MemWrite, [58] zeroExtendFlag, [59] memToReg, [60:61] RegWrite, [65:62] EXRegDst*/
@@ -34,7 +34,7 @@ module cpu(
 );
 
 
-wire [15:0] PCSourceMuxOutput, ALUSource1MuxOutput, ALUSource2MuxOutput, exReg0, ALUOverflowOutput, ALUOutput, DataMemoryOutput, zeroExtendedResult, MemToRegMuxOutput, rd1SrcMuxOutput, rd2SrcMuxOutput, DataMemoryOutputMuxResult;
+wire [15:0] PCSourceMuxOutput, ALUSource1MuxOutput, ALUSource2MuxOutput, exReg0, ALUOverflowOutput, ALUOutput, DataMemoryOutput, zeroExtendedResult, rd1SrcMuxOutput, rd2SrcMuxOutput, DataMemoryOutputMuxResult;
 wire [9:0] SignalFlushMuxOutput;
 
 //Instantiation of IF Stage
@@ -82,7 +82,7 @@ register RegisterFile(
         .registerRead2(IFID_Output[7:4]),
         .regWriteLocal(MWB_Output[3:0]),                   //New
         .registerWrite(MWB_Output[54:53]),                 //New
-        .dataWrite(MemToRegMuxOutput),              //New 
+        .dataWrite(MemToRegMuxOutput),                     //New 
         .r0Write(MWB_Output[19:4]),                        //New
         .dataRead1(rd1Read),
         .dataRead2(rd2Read), 
