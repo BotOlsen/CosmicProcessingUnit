@@ -17,19 +17,12 @@ module programCounter
 begin
     if(!reset_n)
     begin
-        //reserveAddress <= 0;
         outputAddress <= 0;
     end
     else
     begin
         if(pcWrite)
             outputAddress <= inputAddress;   
-            /*outputAddress <= reserveAddress;
-        else
-        begin
-            outputAddress <= inputAddress;
-            reserveAddress <= inputAddress;
-       end*/
     end       
 end
 endmodule
