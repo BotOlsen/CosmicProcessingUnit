@@ -12,23 +12,24 @@ module programCounter
     output reg[SIZE-1:0] outputAddress
 );
 
-reg[SIZE-1:0] reserveAddress;
+//reg[SIZE-1:0] reserveAddress;
 always@(posedge clock, negedge reset)
 begin
     if(!reset)
     begin
-        reserveAddress <= 0;
+        //reserveAddress <= 0;
         outputAddress <= 0;
     end
     else
     begin
         if(pcWrite)
-            outputAddress <= reserveAddress;
+            outputAddress <= inputAddress;   
+            /*outputAddress <= reserveAddress;
         else
         begin
             outputAddress <= inputAddress;
             reserveAddress <= inputAddress;
-       end
+       end*/
     end       
 end
 endmodule
