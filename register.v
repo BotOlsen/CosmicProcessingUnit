@@ -23,7 +23,7 @@ always@(posedge clk, negedge reset_n)
 begin
     if(!reset_n) // initializes R0-R15
     begin
-        registerFile[0] <= 16'h0000;
+        registerFile[0] <= 16'h0000; 
         registerFile[1] <= 16'h7B18;
         registerFile[2] <= 16'h245B;
         registerFile[3] <= 16'hFF0F;
@@ -42,15 +42,18 @@ begin
     end
     else
     begin
-        if(registerWrite == 2'b1x)
+        if(registerWrite == 2'b11 || registerWrite == 2'b10)
         begin
             registerFile[0] <= r0Write;
         end
-        if(registerWrite == 2'bx1)
+        if(registerWrite == 2'b01 || registerWrite == 2'b11)
         begin
             registerFile[regWriteLocal] <= dataWrite;
         end
     end
+    // r0Read <= registerFile[0];
+    // dataRead1 = registerFile[registerRead1];
+    // dataRead2 = registerFile[registerRead2];
 end
 
 always@(*)
