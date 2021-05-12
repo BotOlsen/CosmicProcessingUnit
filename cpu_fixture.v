@@ -19,8 +19,8 @@ always@(negedge clk)
 begin
     $display($time, " Time   -------------------------------------------------------------------------------------------------------------------");
     $display("----------IF Stage-------------\nIFAdderOutput: %h\nPCSourceMuxOutput: %h\n PCOutput: %h\nInstruction: %h\n\n", IFAdderOutput, PCSourceMuxOutput, PCOutput, Instruction);
-    $display("----------ID Stage-------------\nIFID_Output: %h\nRegister0SourceMuxOutput: %h\n rd1SrcMuxOutput: %h\nrd2SrcMuxOutput: %h\nPCSrc: %b\naluBType: %b\naluSrc: %b\nzeroExtendFlag: %b\nmemRead: %b\nmemToReg: %b\nmemWrite: %b\naluControlOp: %b\nregWrite: %b\njumpBranch: %b\n\n",  IFID_Output, Register0SourceMuxOutput, rd1SrcMuxOutput, rd2SrcMuxOutput, PCSrc, aluBType, aluSrc, zeroExtendFlag, memRead, memToReg, memWrite, aluControlOp, regWrite, jumpBranch);
-    $display("----------EX Stage-------------\nALUSource1MuxOutput: %h\nALUSource2MuxOutput: %h\nALUOutput: %h\nALUOverflowOutput: %h\n\n\n",  ALUSource1MuxOutput, ALUSource2MuxOutput, ALUOutput, ALUOverflowOutput);
+    $display("----------ID Stage-------------\nIFID_Output: %h\nRegister0SourceMuxOutput: %h\nrd1SrcMuxOutput: %h\nrd2SrcMuxOutput: %h\nPCSrc: %b\naluBType: %b\naluSrc: %b\nzeroExtendFlag: %b\nmemRead: %b\nmemToReg: %b\nmemWrite: %b\naluControlOp: %b\nregWrite: %b\njumpBranch: %b\n\n",  IFID_Output, Register0SourceMuxOutput, rd1SrcMuxOutput, rd2SrcMuxOutput, PCSrc, aluBType, aluSrc, zeroExtendFlag, memRead, memToReg, memWrite, aluControlOp, regWrite, jumpBranch);
+    $display("----------EX Stage-------------\nALUSource1MuxOutput: %h\nALUSource2MuxOutput: %h\nALUOutput: %h\nALUOverflowOutput: %h\nALUBType\n\n",  ALUSource1MuxOutput, ALUSource2MuxOutput, ALUOutput, ALUOverflowOutput, IDEX_Output[52]);
     $display("----------M Stage-------------\nDataMemoryOutput: %h\nzeroExtendedResult: %h\nDataMemoryOutputMuxResult: %h\n\n\n",  DataMemoryOutput, zeroExtendedResult, DataMemoryOutputMuxResult);
     $display("----------WB Stage-------------\nMemToRegMuxOutput: %h\n\nRegDest: %h\nWBRegW: %b\n",  MemToRegMuxOutput, EXM_Output[3:0], EXM_Output[57:56]);
 end
