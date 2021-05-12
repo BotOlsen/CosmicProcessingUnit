@@ -20,8 +20,8 @@ module cpu(
     //wire [15:0] IFadderOutput;
     
 
-    //assign PCOutput = {`WORD_SIZE{1'b0}};
-    //assign IFAdderOutput = {`WORD_SIZE{1'b0}};
+    assign PCOutput = {`WORD_SIZE{1'b0}};
+    assign IFAdderOutput = {`WORD_SIZE{1'b0}};
 
     adder IFadder(
         .A(PCOutput), 
