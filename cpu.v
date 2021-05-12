@@ -6,16 +6,17 @@
 
 `include "adder.v"
 `include "programCounter.v"
+`include "instructionMemory.v"
 
 module cpu(
     input clk, reset_n,
-    output [15:0] PCOutput, IFAdderOutput,
-    output pcWrite
+    output [15:0] PCOutput, IFAdderOutput, Instruction
+
 );
 
 //assign PCOutput = 0;
 //assign IFAdderOutput = 0;
-assign pcWrite = 1;
+
 
 adder IFAdder(
     .A(PCOutput),
@@ -26,9 +27,16 @@ adder IFAdder(
 programCounter PC(
     .reset_n(reset_n),
     .clock(clk),
-    .pcWrite(pcWrite),
+    .pcWrite(1'b1),
     .inputAddress(IFAdderOutput),
     .outputAddress(PCOutput)
+);
+
+instructionMemory IM(
+    .clk(clk),
+    .reset_n(reset_n),
+    .address(PCOutput),
+    .data(Instruction)
 );
 
 endmodule
