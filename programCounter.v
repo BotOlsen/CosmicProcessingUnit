@@ -7,15 +7,15 @@
 module programCounter
 #(parameter SIZE = 16)
 (
-    input reset, clock, pcWrite,
+    input reset_n, clock, pcWrite,
     input[SIZE-1:0] inputAddress,
     output reg[SIZE-1:0] outputAddress
 );
 
 //reg[SIZE-1:0] reserveAddress;
-always@(posedge clock, negedge reset)
+    always@(posedge clock, negedge reset_n)
 begin
-    if(!reset)
+    if(!reset_n)
     begin
         //reserveAddress <= 0;
         outputAddress <= 0;
