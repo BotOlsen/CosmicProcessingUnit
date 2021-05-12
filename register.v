@@ -8,7 +8,8 @@
 
 module register
 (
-    input clk, reset_n, registerWrite,
+    input clk, reset_n, 
+    input [1:0] registerWrite,
     input [3:0] registerRead1, registerRead2, regWriteLocal,
     input [15:0] dataWrite, r0Write,
     output reg [15:0] dataRead1, dataRead2, r0Read
@@ -18,7 +19,7 @@ module register
 
 reg [15:0] registerFile [15:0];
 
-always@(posedge clk, negedge reset_n, registerWrite)
+always@(posedge clk, negedge reset_n)
 begin
     if(!reset_n) // initializes R0-R15
     begin
@@ -39,14 +40,24 @@ begin
         registerFile[14] <= 16'h0011;
         registerFile[15] <= 16'h0000;
     end
-    dataRead1 <= registerFile[registerRead1];
-    dataRead2 <= registerFile[registerRead2];
-    r0Read <= registerFile[0];
-    
-    if(registerWrite)
+    else
     begin
-        registerFile[regWriteLocal] <= dataWrite;
-        registerFile[0] <= r0Write;
+        if(registerWrite == 2'b1x)
+        begin
+            registerFile[0] <= r0Write;
+        end
+        if(registerWrite == 2'bx1)
+        begin
+            registerFile[regWriteLocal] <= dataWrite;
+        end
     end
 end
+
+always@(*)
+begin 
+    dataRead1 = registerFile[registerRead1];
+    dataRead2 = registerFile[registerRead2];
+    r0Read = registerFile[0];
+end
+
 endmodule
