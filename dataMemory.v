@@ -32,7 +32,7 @@ begin
         memoryData [7] = 8'hBE;
         memoryData [8] = 8'hEF;
         memoryData [9] = 8'hAD;
-
+        dataRead <= {memoryData[1], memoryData[0]};
         for(i = 10; i <= 255; i = i+1) // sets all other addresses to be 0 
             memoryData[i] <= 8'h00;
     end
