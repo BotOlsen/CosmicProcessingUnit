@@ -161,7 +161,7 @@ begin
              memRead = 1'b0;
              memToReg = 1'bx;
              memWrite = 1'b0;
-             jumpBranch = 2'b100;
+             jumpBranch = 3'b100;
         end
 
         4'b0000: // halt type D
