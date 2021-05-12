@@ -26,7 +26,7 @@ module cpu(
     output [1:0] aluControlOp, regWrite, 
     output [2:0] jumpBranch, aluOp,
     output [9:0] SignalFlushMuxOutput,
-    output [15:0] PCOutput, IFAdderOutput, Instruction, rd1Read, rd2Read, reg0Read, signExtendedImmediate, ShiftResult, IDAdderOutput, MemToRegMuxOutput, PCSourceMuxOutput, ALUSource1MuxOutput, ALUSource2MuxOutput, exReg0, ALUOverflowOutput, ALUOutput, DataMemoryOutput, zeroExtendedResult, rd1SrcMuxOutput, rd2SrcMuxOutput, DataMemoryOutputMuxResult,
+    output [15:0] PCOutput, IFAdderOutput, Instruction, rd1Read, rd2Read, reg0Read, signExtendedImmediate, ShiftResult, IDAdderOutput, MemToRegMuxOutput, PCSourceMuxOutput, ALUSource1MuxOutput, ALUSource2MuxOutput, exReg0, ALUOverflowOutput, ALUOutput, DataMemoryOutput, zeroExtendedResult, rd1SrcMuxOutput, rd2SrcMuxOutput, DataMemoryOutputMuxResult, Register0SourceMuxOutput,
     output [31:0] IFID_Output, /*[31:16] IFAdderOutput, [15:0] Instruction Output*/
     output [65:0] IDEX_Output, /*[3:0] Function Code, [19:4] signExtendedImmediate, [35:20] rd2SrcMuxOutput, [51:36]rd1SrcMuxOutput, [52] ALUBType, [53] ALUSrc, [55:54] ALUControlOp}
                                 [56] MemRead, [57] MemWrite, [58] zeroExtendFlag, [59] memToReg, [60:61] RegWrite, [65:62] EXRegDst*/
@@ -92,7 +92,7 @@ mux4to1 Register0SourceMux(
         .input2(ALUOverflowOutput),  
         .input3(EXM_Output[35:20]),                        //M Stage R OUTPUT
         .input4(MWB_Output[19:4]),                         //WB STAGE R OUTPUT
-        .out(reg0Read)
+        .out(Register0SourceMuxOutput)
 );
 
 mux4to1 rd1SourceMux(
@@ -114,7 +114,7 @@ mux4to1 rd2SourceMux(
 );
 
 comparator Comparator(
-    .r0(reg0Read),
+    .r0(Register0SourceMuxOutput),
     .op1(rd1Read),
     .CTRL(jumpBranch),
     .PCSrc(PCSrc)
