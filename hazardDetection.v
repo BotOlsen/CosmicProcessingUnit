@@ -7,13 +7,13 @@
 
 
 module hazardDetection
-#(parameter SIZE = 16);
+#(parameter SIZE = 16)
 (
     input memoryRead, // comes from execution stage 
-    input [3:0] opcode;
+    input [3:0] opcode,
     input [SIZE-1:0] loadOp1, loadOp2, // these registers come from the decode stage 
     input [SIZE-1:0] loadRead, // comes from the decode/execution stage 
-    output reg stall // sends to the or gate which has 2 inputs. the stall, and the flush which comes from the control unit 
+    output reg stall, // sends to the or gate which has 2 inputs. the stall, and the flush which comes from the control unit 
     output reg fetchWrite, // sent towards IF/ID buffer pipeline 
     output reg pcWrite // send towards program counter 
 );
