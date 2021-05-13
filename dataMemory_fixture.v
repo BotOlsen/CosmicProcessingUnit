@@ -4,51 +4,67 @@
  * Name: Data Memory Fixture
  */
 
+/*
+ * Date: 05-13-2021
+ * Author: Ramsey Alahmad
+ * Name: Data Memory Fixture
+ */
+
 
 `include "dataMemory.v"
 
 module dataMemory_fixture;
+reg clk, reset_n, memoryWrite, memoryRead, sb;
+reg [15:0] address;
+reg [15:0] dataWrite;
+wire [15:0] dataRead;
 
-    reg clk, reset_n, memoryWrite, memoryRead;
-    reg [7:0] address;
-    reg [15:0] dataWrite;
-    wire [15:0] dataRead;
+initial
+    $vcdpluson;
 
-    initial
-        $vcdpluson;
+initial
+    $monitor($time, " reset_n = %b, \n\t\t memoryWrite = %b, memoryRead = %b, sb = %b, \n\t\t address = %h, dataWrite = %h, dataRead = %h", reset_n, memoryWrite, memoryRead, sb, address, dataWrite, dataRead);
 
-    initial
-        $monitor($time, "clk = %b, reset_n = %b, \n\t\t memoryWrite = %b memoryRead = %b, \n\t\t address = %h dataWrite = %h dataRead = %h", clk, reset_n, memoryWrite, memoryRead, address, dataWrite, dataRead);
+dataMemory u1(.sb(sb), .clk(clk), .reset_n(reset_n), .memoryWrite(memoryWrite), .memoryRead(memoryRead), .address(address), .dataWrite(dataWrite), .dataRead(dataRead));
 
 
-    initial begin // reset and read from memory 
-        reset_n = 1'b0;
-        memoryRead = 1'b1;
-        address = 16'h0002;
+initial
+begin
+    clk = 1'b0;
+   forever #10  clk = ~clk;
+end
 
-        #20 // write into memory 
-        reset_n = 1'b1;
-        memoryRead = 1'b0;
-        memoryWrite = 1'b1;
-        address = 16'h0008;
-        dataWrite = 16'hAAAA;
 
-        #20 // read from memory 
-        memoryRead = 1'b1;
-        memoryWrite = 1'b0;
-        address = 16'h0000;
+initial
+begin
 
-    end
+    sb = 1'b0;
+    reset_n = 1'b0;
+   
+    #20 // write into memory
+    reset_n = 1'b1;
+    memoryRead = 1'b0;
+    memoryWrite = 1'b1;
+    address = 16'hFFFA;
+    dataWrite = 16'h0045;
 
-    initial
-    begin
-        clk = 1'b0;
-        #10 forever clk = ~clk;
-    end
+    #20 // read from memory
+    memoryRead = 1'b1;
+    memoryWrite = 1'b0;
+    address = 16'h0000;
+    dataWrite = 16'hFFFF;
+    sb = 1'b0;
 
-    initial
-    begin
-       #150 $finish;
-    end
+    #20 // read from memory
+    memoryRead = 1'b1;
+    memoryWrite = 1'b0;
+    address = 16'hFFFA;
+    dataWrite = 16'hFFFF;
+    sb = 1'b0;
+end
 
+initial
+begin
+    #100 $finish;
+end
 endmodule
