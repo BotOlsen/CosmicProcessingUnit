@@ -2,12 +2,7 @@
  * Date 05-04-2021
  * Author: Ramsey Alahmad
  * Name: dataMemory
- */
-
-/*
- * Date 05-04-2021
- * Author: Ramsey Alahmad
- * Name: dataMemory
+ * Functional as of 4:36pm 5/13/21 
  */
 
 
@@ -41,7 +36,6 @@ begin
         for(i = 10; i <= 65535; i = i+1) // sets all other addresses to be 0 
             memoryData[i] <= 8'h00;
     end
-
     else if(memoryWrite) // concatenation
       begin
         if(!sb)
