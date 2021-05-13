@@ -1,10 +1,4 @@
 /*
- * Date: 05-04-2021
- * Author: Ramsey Alahmad
- * Name: Data Memory Fixture
- */
-
-/*
  * Date: 05-13-2021
  * Author: Ramsey Alahmad
  * Name: Data Memory Fixture
