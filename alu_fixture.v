@@ -2,6 +2,7 @@
  * Date: 5-01-2021
  * Author: Daniel Olsen
  * Name: alu_fixture
+ * Functional as of 3:40pm 5/13/21 
  */
 
 `include "alu.v"

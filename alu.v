@@ -2,6 +2,7 @@
  * Date: 5-01-2021
  * Author: Daniel Olsen
  * Name: alu
+ * Functional as of 3:40pm 5/13/21 
  */
 
 module alu(
