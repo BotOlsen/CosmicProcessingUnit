@@ -21,21 +21,32 @@
 `include "zero_extend.v"
 
 module cpu(
-    input clk, reset_n, 
-    output PCSrc, aluBType, aluSrc, zeroExtendFlag, memRead, memWrite, memToReg, 
-    output [1:0] aluControlOp, regWrite, 
-    output [2:0] jumpBranch, aluOp,
-    output [9:0] SignalFlushMuxOutput,
-    output [15:0] PCOutput, IFAdderOutput, Instruction, rd1Read, rd2Read, reg0Read, signExtendedImmediate, ShiftResult, IDAdderOutput, MemToRegMuxOutput, PCSourceMuxOutput, ALUSource1MuxOutput, ALUSource2MuxOutput, exReg0, ALUOverflowOutput, ALUOutput, DataMemoryOutput, zeroExtendedResult, rd1SrcMuxOutput, rd2SrcMuxOutput, DataMemoryOutputMuxResult, Register0SourceMuxOutput,
-    output [31:0] IFID_Output, /*[31:16] IFAdderOutput, [15:0] Instruction Output*/
-    output [65:0] IDEX_Output, /*[3:0] Function Code, [19:4] signExtendedImmediate, [35:20] rd2SrcMuxOutput, [51:36]rd1SrcMuxOutput, [52] ALUBType, [53] ALUSrc, [55:54] ALUControlOp}
-                                [56] MemRead, [57] MemWrite, [58] zeroExtendFlag, [59] memToReg, [60:61] RegWrite, [65:62] EXRegDst*/
-    output [57:0] EXM_Output, /*[3:0] MRegDest, [19:4] DataToWrite, [35:20] ALUOverflowOutput, [51:36] ALUOutput, [52] MemRead, [53] MemWrite, [54] zeroExtendFlag, [55] memToReg, [57:56] RegWrite*/
-    output [54:0] MWB_Output /* [3:0] WBRegDest, [19:4] ALUOverflowOutput, [35:20] DataMemoryOutputMuxResult, [51:36] ALUOutput, [52] memToReg, [54:53]RegWrite*/
+    input clk, reset_n 
+//     output PCSrc, aluBType, aluSrc, zeroExtendFlag, memRead, memWrite, memToReg, 
+//     output [1:0] aluControlOp, regWrite, 
+//     output [2:0] jumpBranch, aluOp,
+//     output [9:0] SignalFlushMuxOutput,
+//     output [15:0] PCOutput, IFAdderOutput, Instruction, rd1Read, rd2Read, reg0Read, signExtendedImmediate, ShiftResult, IDAdderOutput, MemToRegMuxOutput, PCSourceMuxOutput, ALUSource1MuxOutput, ALUSource2MuxOutput, exReg0, ALUOverflowOutput, ALUOutput, DataMemoryOutput, zeroExtendedResult, rd1SrcMuxOutput, rd2SrcMuxOutput, DataMemoryOutputMuxResult, Register0SourceMuxOutput,
+//     output [31:0] IFID_Output, /*[31:16] IFAdderOutput, [15:0] Instruction Output*/
+//     output [65:0] IDEX_Output, /*[3:0] Function Code, [19:4] signExtendedImmediate, [35:20] rd2SrcMuxOutput, [51:36]rd1SrcMuxOutput, [52] ALUBType, [53] ALUSrc, [55:54] ALUControlOp}
+//                                 [56] MemRead, [57] MemWrite, [58] zeroExtendFlag, [59] memToReg, [60:61] RegWrite, [65:62] EXRegDst*/
+//     output [57:0] EXM_Output, /*[3:0] MRegDest, [19:4] DataToWrite, [35:20] ALUOverflowOutput, [51:36] ALUOutput, [52] MemRead, [53] MemWrite, [54] zeroExtendFlag, [55] memToReg, [57:56] RegWrite*/
+//     output [54:0] MWB_Output /* [3:0] WBRegDest, [19:4] ALUOverflowOutput, [35:20] DataMemoryOutputMuxResult, [51:36] ALUOutput, [52] memToReg, [54:53]RegWrite*/
 );
 
-assign EXALUBType = IDEX_Output[52];
 
+wire PCSrc, aluBType, aluSrc, zeroExtendFlag, memRead, memWrite, memToReg;
+wire [1:0] aluControlOp, regWrite; 
+wire [2:0] jumpBranch, aluOp;
+wire [9:0] SignalFlushMuxOutput;
+wire [15:0] PCOutput, IFAdderOutput, Instruction, rd1Read, rd2Read, reg0Read, signExtendedImmediate, ShiftResult, IDAdderOutput, MemToRegMuxOutput, PCSourceMuxOutput, ALUSource1MuxOutput, ALUSource2MuxOutput, exReg0, ALUOverflowOutput, ALUOutput, DataMemoryOutput, zeroExtendedResult, rd1SrcMuxOutput, rd2SrcMuxOutput, DataMemoryOutputMuxResult, Register0SourceMuxOutput;
+wire [31:0] IFID_Output; /*[31:16] IFAdderOutput, [15:0] Instruction Output*/
+wire [65:0] IDEX_Output; /*[3:0] Function Code, [19:4] signExtendedImmediate, [35:20] rd2SrcMuxOutput, [51:36]rd1SrcMuxOutput, [52] ALUBType, [53] ALUSrc, [55:54] ALUControlOp}
+                               [56] MemRead, [57] MemWrite, [58] zeroExtendFlag, [59] memToReg, [60:61] RegWrite, [65:62] EXRegDst*/
+wire [57:0] EXM_Output; /*[3:0] MRegDest, [19:4] DataToWrite, [35:20] ALUOverflowOutput, [51:36] ALUOutput, [52] MemRead, [53] MemWrite, [54] zeroExtendFlag, [55] memToReg, [57:56] RegWrite*/
+wire [54:0] MWB_Output; /* [3:0] WBRegDest, [19:4] ALUOverflowOutput, [35:20] DataMemoryOutputMuxResult, [51:36] ALUOutput, [52] memToReg, [54:53]RegWrite*/
+
+assign EXALUBType = IDEX_Output[52];
 
         
 stage_buffer #(.SIZE(32)) IFID (
