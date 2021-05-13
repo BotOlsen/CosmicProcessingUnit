@@ -2,6 +2,7 @@
  * Date: 4-25-2021
  * Author: Daniel Olsen
  * Name: adder_fixture
+ * Functional as of 3:15pm 5/13/21
  */
 
 `include "adder.v"
