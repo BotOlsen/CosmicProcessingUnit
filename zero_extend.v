@@ -6,13 +6,13 @@
 
 module zero_extend 
 (
-    input [7:0] lowerByteDataMemoryOutput,
+    input [7:0] lowerByteInput,
     output reg [15:0] zeroExtendedResult
 );
 
     always @(*)
     begin
-        zeroExtendedResult = {8'b0, lowerByteDataMemoryOutput};
+        zeroExtendedResult = {8'b0, lowerByteInput};
     end
 endmodule
 

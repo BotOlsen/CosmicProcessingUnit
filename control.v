@@ -9,13 +9,14 @@ module control
 (
     input [1:0] multiDiv,
     input [3:0] opcode,
-    output reg aluBType, aluSrc, zeroExtendFlag, memRead, memToReg, memWrite,
+    output reg aluBType, aluSrc, zeroExtendFlag, memRead, memToReg, memWrite, storeByte,
     output reg [1:0] aluControlOp, regWrite, 
     output reg [2:0] jumpBranch
 );
 
 always@(*)
 begin
+    storeByte = 1'b0;
     case(opcode)
        
         4'b1111: // type A
@@ -63,7 +64,7 @@ begin
         4'b1010: // LBU type B
         begin
             aluBType = 1'b1;
-            aluSrc = 1'b1;
+            aluSrc = 1'b0;
             aluControlOp = 2'b10;
             regWrite = 2'b00;
             zeroExtendFlag = 1'b1;
@@ -76,20 +77,21 @@ begin
         4'b1011: // Store Byte type B
         begin
             aluBType = 1'b1;
-            aluSrc = 1'b1;
+            aluSrc = 1'b0;
             aluControlOp = 2'b10;
             regWrite = 2'b01;
             zeroExtendFlag = 1'b0;
             memRead = 1'b0;
             memToReg = 1'bx; // dont care (please check this)
             memWrite = 1'b1; 
-            jumpBranch = 3'b000;;
+            jumpBranch = 3'b000;
+            storeByte = 1'b1;
         end
         
         4'b1100: // load type B 
         begin
             aluBType = 1'b1;
-            aluSrc = 1'b1;
+            aluSrc = 1'b0;
             aluControlOp = 2'b10;
             regWrite = 2'b00;
             zeroExtendFlag = 1'b0;
@@ -102,7 +104,7 @@ begin
         4'b1101: // store type B
         begin
             aluBType = 1'b1;
-            aluSrc = 1'b1;
+            aluSrc = 1'b0;
             aluControlOp = 2'b10;
             regWrite = 2'b01;
             zeroExtendFlag = 1'b0;

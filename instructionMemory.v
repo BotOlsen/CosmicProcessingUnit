@@ -8,12 +8,12 @@
 module instructionMemory
 (
     input clk, reset_n, //inputAddress,
-    input [7:0] address,
+    input [15:0] address,
     //input [15:0] value,
     output reg [15:0] data
 );
 
-reg [7:0] memory [0:255];
+reg [7:0] memory [0:65535];
 reg [15:0] memoryValue;
 integer index;
 
@@ -25,11 +25,11 @@ begin
         memory [1] <= 8'hFE;
         memory [2] <= 8'h22; // SUB
         memory [3] <= 8'hFB;
-        memory [4] <= 8'h58; // Or Immediate 
+        memory [4] <= 8'h88; // Or Immediate 
         memory [5] <= 8'h23; 
         memory [6] <= 8'h9A; // And immediate
         memory [7] <= 8'h14; 
-        memory [8] <= 8'h62; // MUL 
+        memory [8] <= 8'h64; // MUL 
         memory [9] <= 8'hF5; 
         memory [10] <= 8'h68; // DIV
         memory [11] <= 8'hF1; 

@@ -12,16 +12,17 @@ module control_fixture;
 
 reg [1:0] multiDiv;
 reg [3:0] opcode;
-wire aluBType, aluSrc, zeroExtendFlag, memRead, memToReg, memWrite;
-wire [1:0] aluControl, regWrite, jumpBranch;
+wire aluBType, aluSrc, zeroExtendFlag, memRead, memToReg, memWrite, storeByte;
+wire [1:0] aluControl, regWrite;
+wire [2:0] jumpBranch;
 
 initial
     $vcdpluson;
 
 initial 
-    $monitor($time, " opcode = %b multiDiv = %b, \n\t\t aluBType = %b, aluSrc = %b, zeroExtendFlag = %b, memRead = %b, memToReg = %b, memWrite = %b, \n\t\t aluControl = %b, regWrite = %b, jumpBranch = %b ", opcode, multiDiv, aluBType, aluSrc, zeroExtendFlag, memRead, memToReg, memWrite, aluControl, regWrite, jumpBranch);
+    $monitor($time, " opcode = %b multiDiv = %b, \n\t\t aluBType = %b, aluSrc = %b, zeroExtendFlag = %b, memRead = %b, memToReg = %b, memWrite = %b, \n\t\t aluControl = %b, regWrite = %b, jumpBranch = %b  storeBYte: %b\n\n", opcode, multiDiv, aluBType, aluSrc, zeroExtendFlag, memRead, memToReg, memWrite, aluControl, regWrite, jumpBranch, storeByte);
  
- control u1 (.opcode(opcode), .multiDiv(multiDiv), .aluBType(aluBType), .aluSrc(aluSrc), .zeroExtendFlag(zeroExtendFlag), .memRead(memRead), .memToReg(memToReg), .memWrite(memWrite), .aluControl(aluControl), .regWrite(regWrite), .jumpBranch(jumpBranch));
+ control u1 (.opcode(opcode), .multiDiv(multiDiv), .aluBType(aluBType), .aluSrc(aluSrc), .zeroExtendFlag(zeroExtendFlag), .memRead(memRead), .memToReg(memToReg), .memWrite(memWrite), .aluControlOp(aluControl), .regWrite(regWrite), .jumpBranch(jumpBranch), .storeByte(storeBYte));
 
 
  initial
