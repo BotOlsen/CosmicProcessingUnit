@@ -2,6 +2,7 @@
  * Date: 5-07-2021
  * Author: Daniel Olsen
  * Name: comparator
+ * Functional as of 3:44pm 5/13/21 
  */
 
 module comparator(

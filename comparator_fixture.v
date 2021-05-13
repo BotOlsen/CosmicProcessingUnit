@@ -2,6 +2,7 @@
  * Date: 5-01-2021
  * reg0uthor: Daniel Olsen
  * Name: comparator_fixture
+ * Functional as of 3:44pm 5/13/21
  */
 
 `include "comparator.v"
