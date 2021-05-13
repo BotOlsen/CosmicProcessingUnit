@@ -3,6 +3,7 @@
  * Author: Ramsey Alahmad
  * Name: mux2to1_fixture
  * About: Testbench for 2 to 1 multiplexor
+ * Functional as of 4:50pm 5/13/21 
  */
 
 `include "mux2to1.v"
@@ -25,8 +26,8 @@ initial begin
     switch = 1'b1; input1 = 16'hABCD; input2 = 16'hAAAA;
     $display("When switch is 1\n");
     #10 switch = 1'b0; input1 = 16'hBBBB; input2 = 16'hCCCC;
-    $display("When switch is 1\n");
-    #10 switch = 1'b1; input1 = 16'hAB12; input2 = 16'hBC34;
+    $display("When switch is 0\n");
+
     #10 $finish;
 end
 endmodule

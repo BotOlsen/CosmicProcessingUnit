@@ -3,6 +3,7 @@
   * Author: Ramsey Alahmad
   * Name: mux2to1
   * About: Multiplexor where if the switch is 0, the output is assigned to be input1, vice-versa.
+ * Functional as of 4:50pm 5/13/21  
   */
   
 module mux2to1
