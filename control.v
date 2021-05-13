@@ -176,7 +176,7 @@ begin
             memRead = 1'b0;
             memToReg = 1'b0;
             memWrite = 1'b0;
-            jumpBranch = 3'b000;;
+            jumpBranch = 3'b000;
         end
     endcase
   end
