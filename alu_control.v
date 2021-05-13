@@ -2,6 +2,7 @@
  * Date: 5-02-2021
  * Author: Daniel Olsen
  * Name: alu_control
+ * Functional as of 3:36pm 5/13/21  
  */
 
 module alu_control(
