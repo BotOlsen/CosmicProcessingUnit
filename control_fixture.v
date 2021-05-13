@@ -2,7 +2,7 @@
  * Date: 05-11-2021
  * Author: Ramsey Alahmad
  * Name: Control Fixture
- *
+ * Functional as of 3:31pm 5/13/21
  */
 
 
@@ -22,7 +22,7 @@ initial
 initial 
     $monitor($time, " opcode = %b multiDiv = %b, \n\t\t aluBType = %b, aluSrc = %b, zeroExtendFlag = %b, memRead = %b, memToReg = %b, memWrite = %b, \n\t\t aluControl = %b, regWrite = %b, jumpBranch = %b  storeBYte: %b\n\n", opcode, multiDiv, aluBType, aluSrc, zeroExtendFlag, memRead, memToReg, memWrite, aluControl, regWrite, jumpBranch, storeByte);
  
- control u1 (.opcode(opcode), .multiDiv(multiDiv), .aluBType(aluBType), .aluSrc(aluSrc), .zeroExtendFlag(zeroExtendFlag), .memRead(memRead), .memToReg(memToReg), .memWrite(memWrite), .aluControlOp(aluControl), .regWrite(regWrite), .jumpBranch(jumpBranch), .storeByte(storeBYte));
+ control u1 (.opcode(opcode), .multiDiv(multiDiv), .aluBType(aluBType), .aluSrc(aluSrc), .zeroExtendFlag(zeroExtendFlag), .memRead(memRead), .memToReg(memToReg), .memWrite(memWrite), .aluControlOp(aluControl), .regWrite(regWrite), .jumpBranch(jumpBranch), .storeByte(storeByte));
 
 
  initial
