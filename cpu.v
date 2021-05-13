@@ -36,9 +36,10 @@ module cpu(
 
 assign EXALUBType = IDEX_Output[52];
 
+
         
 stage_buffer #(.SIZE(32)) IFID (
-        .in({IFAdderOutput, Instruction}),
+        .in({IFAdder.sum, Instruction}),
         .writeEnable(1'b1),             
         .clk(clk),
         .flush(reset_n),

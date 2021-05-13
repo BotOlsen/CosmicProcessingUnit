@@ -20,27 +20,13 @@ begin
     $display($time, " Time   -------------------------------------------------------------------------------------------------------------------");
     $display("----------IF Stage-------------\nIFAdderOutput: %h\nPCSourceMuxOutput: %h\n PCOutput: %h\nInstruction: %h\n\n", IFAdderOutput, PCSourceMuxOutput, PCOutput, Instruction);
     $display("----------ID Stage-------------\nIFID_Output: %h\nRegister0SourceMuxOutput: %h\nrd1SrcMuxOutput: %h\nrd2SrcMuxOutput: %h\nPCSrc: %b\naluBType: %b\naluSrc: %b\nzeroExtendFlag: %b\nmemRead: %b\nmemToReg: %b\nmemWrite: %b\naluControlOp: %b\nregWrite: %b\njumpBranch: %b\n\n",  IFID_Output, Register0SourceMuxOutput, rd1SrcMuxOutput, rd2SrcMuxOutput, PCSrc, aluBType, aluSrc, zeroExtendFlag, memRead, memToReg, memWrite, aluControlOp, regWrite, jumpBranch);
-    $display("----------EX Stage-------------\nALUSource1MuxOutput: %h\nALUSource2MuxOutput: %h\nALUOutput: %h\nALUOverflowOutput: %h\nALUBType\n\n",  ALUSource1MuxOutput, ALUSource2MuxOutput, ALUOutput, ALUOverflowOutput, IDEX_Output[52]);
-    $display("----------M Stage-------------\nDataMemoryOutput: %h\nzeroExtendedResult: %h\nDataMemoryOutputMuxResult: %h\n\n\n",  DataMemoryOutput, zeroExtendedResult, DataMemoryOutputMuxResult);
-    $display("----------WB Stage-------------\nMemToRegMuxOutput: %h\n\nRegDest: %h\nWBRegW: %b\n",  MemToRegMuxOutput, EXM_Output[3:0], EXM_Output[57:56]);
+    $display("----------EX Stage-------------\nIDEX_Output: %h\nALUSource1MuxOutput: %h\nALUSource2MuxOutput: %h\nALUOutput: %h\nALUOverflowOutput: %h\nALUBType %b\n\n",  cpu_test.IDEX.out, cpu_test.ALUSource1Mux.out, cpu_test.ALUSource2Mux.out, cpu_test.ALU.result, cpu_test.ALU.overflow, cpu_test.IDEX.out[52]);
+    $display("----------M Stage-------------\nEXM_Output: %h\nDataMemoryOutput: %h\nzeroExtendedResult: %h\nDataMemoryOutputMuxResult: %h\n\n\n",  cpu_test.EXM.out, cpu_test.DataMemory.data /*DataMemoryOutput*/, /*zeroExtendedResult*/, /*DataMemoryOutputMuxResult*/);
+    $display("----------WB Stage-------------\nMWB_Output: %h\nMemToRegMuxOutput: %h\n\nRegDest: %h\nWBRegW: %b\n", MWB_Output, MemToRegMuxOutput, EXM_Output[3:0], EXM_Output[57:56]);
 end
 
 initial
 	$vcdpluson;
-
-/*initial
-begin
-    $display("IF OUTPUTS---------------------------------------------------------------------------------------------------------------------------------------------");
-	$monitor($time, "  clk = %b    reset_n = %b    PCOutput = %h     IFAdderOutput: %h  Instruction:  %h   IFID_Output: %h", clk, reset_n, PCOutput, IFAdderOutput, Instruction, IFID_Output);
-end*/
-
-// initial
-// begin
-// 	$monitor($time, " ----------IF Stage-------------\nIFAdderOutput: %h\tPCSourceMuxOutput: %h\t PCOutput: %h\tInstruction: %h\n\n",
-//     "----------ID Stage-------------\nIFID_Output: %h\tRegister0SourceMuxOutput: %h\t rd1SrcMuxOutput: %h\trd2SrcMuxOutput: %h\tPCSrc: %b\taluBType: %b\taluSrc: %b\tzeroExtendFlag: %b\tmemRead: %b\tmemToReg: %b\tmemWrite: %b\taluControlOp: %b\tregWrite: %b\tjumpBranch: %b\n\n", 
-//     IFAdderOutput, PCSourceMuxOutput, PCOutput, Instruction, 
-//     IFID_Output, Register0SourceMuxOutput, rd1SrcMuxOutput, rd2SrcMuxOutput, PCSrc, aluBType, aluSrc, zeroExtendFlag, memRead, memToReg, memWrite, aluControlOp, regWrite, jumpBranch);
-// end
 
 
 cpu cpu_test(.clk(clk), .reset_n(reset_n), 
@@ -51,13 +37,13 @@ cpu cpu_test(.clk(clk), .reset_n(reset_n),
 initial
 begin
     clk = 1'b0;
-    forever #40 clk = ~clk;
+    forever #10 clk = ~clk;
 end
 
 initial
 begin
     reset_n = 1'b0;
-    #40 reset_n = 1'b1;
+    #20 reset_n = 1'b1;
     
 end
 
