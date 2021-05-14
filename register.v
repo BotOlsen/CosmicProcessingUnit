@@ -2,7 +2,7 @@
  * Date : 05-03-2021
  * Author: Ramsey Alahmad
  * Name: register
- *
+ * Functional as of 5:15pm 5/13/21 
  */
 
 

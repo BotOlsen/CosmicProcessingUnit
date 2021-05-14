@@ -2,6 +2,7 @@
  * Date: 05-03-2021
  * Author: Ramsey Alahmad
  * Name: register_fixture
+ * Functional as of 5:15pm 5/13/21 
  */
 
 `include "register.v"
@@ -34,7 +35,7 @@ register u1 (
 initial // clock assignment 
 begin
     clk = 1'b0;
-    forever #10 clk = ~clk;
+    forever #5 clk = ~clk;
 end
 
 initial // Reset and then begin reading the registers 
