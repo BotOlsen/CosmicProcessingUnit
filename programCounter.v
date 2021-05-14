@@ -2,6 +2,7 @@
  * Date: 4-25-2021
  * Author: Ramsey Alahmad
  * Name: programCounter
+ * Functional as of 6:10pm 5/13/21  
  */
 
 module programCounter
@@ -12,17 +13,16 @@ module programCounter
     output reg[SIZE-1:0] outputAddress
 );
 
-//reg[SIZE-1:0] reserveAddress;
     always@(posedge clock, negedge reset_n)
-begin
-    if(!reset_n)
     begin
-        outputAddress <= 0;
+        if(!reset_n)
+        begin
+            outputAddress <= 0;
+        end
+        else
+        begin
+            if(pcWrite)
+                outputAddress <= inputAddress;   
+        end       
     end
-    else
-    begin
-        if(pcWrite)
-            outputAddress <= inputAddress;   
-    end       
-end
 endmodule
