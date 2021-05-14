@@ -3,6 +3,7 @@
  * Author: Ramsey Alahmad
  * Name: mux4to1_fixture
  * About: Testbench for 4 to 1 multiplexor
+ * Functional as of 6:13pm 5/13/21  
  */
 
 `include "mux4to1.v"

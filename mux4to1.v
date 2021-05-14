@@ -2,6 +2,7 @@
  * Date : 5-02-2021
  * Author: Ramsey Alahmad
  * Name: mux4to1
+ * Functional as of 6:13pm 5/13/21  
  */
 
 module mux4to1
