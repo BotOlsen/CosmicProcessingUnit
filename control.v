@@ -67,7 +67,7 @@ begin
             aluBType = 1'b1;
             aluSrc = 1'b0;
             aluControlOp = 2'b10;
-            regWrite = 2'b00;
+            regWrite = 2'b01;
             zeroExtendFlag = 1'b1;
             memRead = 1'b1;
             memToReg = 1'b1;
@@ -80,7 +80,7 @@ begin
             aluBType = 1'b1;
             aluSrc = 1'b0;
             aluControlOp = 2'b10;
-            regWrite = 2'b01;
+            regWrite = 2'b00;
             zeroExtendFlag = 1'b0;
             memRead = 1'b0;
             memToReg = 1'bx; // dont care (please check this)
@@ -94,7 +94,7 @@ begin
             aluBType = 1'b1;
             aluSrc = 1'b0;
             aluControlOp = 2'b10;
-            regWrite = 2'b00;
+            regWrite = 2'b01;
             zeroExtendFlag = 1'b0;
             memRead = 1'b1;
             memToReg = 1'b1;
@@ -107,7 +107,7 @@ begin
             aluBType = 1'b1;
             aluSrc = 1'b0;
             aluControlOp = 2'b10;
-            regWrite = 2'b01;
+            regWrite = 2'b00;
             zeroExtendFlag = 1'b0;
             memRead = 1'b0;
             memToReg = 1'bx; // dont care (please check this)
