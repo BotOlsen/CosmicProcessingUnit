@@ -2,6 +2,7 @@
  * Date: 4-25-2021
  * Author: Daniel Olsen
  * Name: zero_extend
+ * Functional as of 5:41pm 5/13/21  
  */
 
 module zero_extend 

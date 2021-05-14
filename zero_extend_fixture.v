@@ -2,6 +2,7 @@
  * Date: 4-25-2021
  * Author: Daniel Olsen
  * Name: zero_extend_fixture
+ * Functional as of 5:41pm 5/13/21 
  */
 
  `include "zero_extend.v"
@@ -17,7 +18,7 @@ initial
 initial
 	$monitor($time, "  dataMemoryOutput = %h  extendedResult = %h  ", dataMemoryOutput[7:0], extendedResult[15:0]);
 
-zero_extend zero_extendInstance(.lowerByteDataMemoryOutput(dataMemoryOutput), .zeroExtendedResult(extendedResult));
+zero_extend zero_extendInstance(.lowerByteInput(dataMemoryOutput), .zeroExtendedResult(extendedResult));
 
 //dataMemoryOutput inputs change every 15 time units
 initial
