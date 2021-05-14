@@ -2,6 +2,7 @@
  * Date: 5-01-2021
  * Author: Daniel Olsen
  * Name: stage_buffer
+ * Functional as of 5:46pm 5/13/21 
  */
 
 module stage_buffer #(parameter SIZE = 16) 

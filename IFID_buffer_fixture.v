@@ -2,6 +2,7 @@
  * Date: 5-01-2021
  * Author: Daniel Olsen
  * Name: IFID_buffer_fixture
+ * Functional as of 5:46pm 5/13/21
  */
 
 `include "stage_buffer.v"
@@ -23,7 +24,7 @@ initial
 	$monitor ($time, " IF Adder output = %h    Instruction Memory output = %h    w_enable %b    Buffer Output = %h    ", IF_adderOutput, IF_instructionMemoryOutput, write,  dataout);
 	
 
-register #(.SIZE(32)) IFIDRegister (
+stage_buffer #(.SIZE(32)) IFIDRegister (
         .in({IF_adderOutput, IF_instructionMemoryOutput}),
         .writeEnable(write),        
         .clk(clk),
