@@ -2,6 +2,7 @@
  * Date: 5-02-2021
  * Author: Daniel Olsen
  * Name: sign_extend_fixture
+ * Functional as of 5:53pm 5/13/21 
  */
 
  `include "sign_extend.v"

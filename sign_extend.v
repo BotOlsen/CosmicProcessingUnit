@@ -2,6 +2,10 @@
  * Date: 5-02-2021
  * Author: Daniel Olsen
  * Name: sign_extend
+ * Functional as of 5:53pm 5/13/21
+ * About:   Takes in whole instruction. Decides which sign extension to implement.
+ *          It takes the whole instruction so the stage does not take as long. Or 
+ *          else it would need to wait for the contorl unit as well. 
  */
 
 module sign_extend 
