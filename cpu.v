@@ -19,14 +19,17 @@
 `include "alu_control.v"
 `include "dataMemory.v"
 `include "zero_extend.v"
+`include "forwardingUnit.v"
+`include "hazardDetection.v"
 
 module cpu(
     input clk, reset_n 
 );
 
 
-wire PCSrc, aluBType, aluSrc, zeroExtendFlag, memRead, memWrite, memToReg, storeByte;
+wire PCSrc, aluBType, aluSrc, zeroExtendFlag, memRead, memWrite, memToReg, storeByte, stall, pcWrite, IFIDFlush;
 wire [1:0] aluControlOp, regWrite; 
+wire [1:0] Op1Fwd, Op2Fwd, R0Fwd;
 wire [2:0] jumpBranch, aluOp;
 wire [9:0] SignalFlushMuxOutput;
 wire [15:0] PCOutput, IFAdderOutput, Instruction, rd1Read, rd2Read, reg0Read, signExtendedImmediate, ShiftResult, IDAdderOutput, MemToRegMuxOutput, PCSourceMuxOutput; 
@@ -84,22 +87,37 @@ adder IFAdder(
 );
 
 /////////////////Forwarding UNit HERE//////////////////////////////////
-
-
-
-
-
+forwardingUnit forwardingUnit(
+        .exW(IDEX.out[61:60]),
+        .mW(EXM.out[57:56]),
+        .wbW(MWB.out[54:53]),
+        .exRegDest(IDEX.out[65:62]),
+        .mRegDest(EXM.out[3:0]),
+        .wbRegDest(MWB.out[3:0]),
+        .idreg1(IFID.out[11:8]),
+        .idreg2(IFID.out[7:4]),
+        .Op1Fwd(Op1Fwd),
+        .Op2Fwd(Op2Fwd),
+        .R0Fwd(R0Fwd)
+);
 ///////////////////////////////////////////////////////////////////////
 
 
 
 
 /////////////////Hazard Detection Unit Here////////////////////////////
-
-
-
-
-
+/*
+hazardDetection #(.SIZE(4)) (
+        .memoryRead(IDEX.out[56]),
+        .opcode(IFID.out[15:12]),
+        .loadOp1(IFID.out[11:8]),
+        .loadOp2(IFID.out[7:3]),
+        loadRead(IDEX.out[65:52]),
+        .stall(stall),
+        .fetchWrite(IFIDFlush),
+        .pcWrite(pcWrite)
+);
+*/
 ///////////////////////////////////////////////////////////////////////
 
 
@@ -113,7 +131,8 @@ mux2to1 PCSourceMux (
 programCounter PC(
     .reset_n(reset_n),
     .clock(clk),
-    .pcWrite(1'b1),                          //Actual value added later
+    .pcWrite(1'b1), //pcWrite),                          //Actual value added later
+
     .inputAddress(PCSourceMuxOutput),
     .outputAddress(PCOutput)
 );
@@ -141,7 +160,7 @@ register RegisterFile(
         );
 
 mux4to1 Register0SourceMux(
-        .switch(2'b00),                             //Add later, output of OFrwarding UNnit (R0Fwd)
+        .switch(R0Fwd),                             //output of OFrwarding UNnit (R0Fwd)
         .input1(reg0Read),
         .input2(ALUOverflowOutput),  
         .input3(EXM.out[35:20]),                        //M Stage R OUTPUT
@@ -150,7 +169,7 @@ mux4to1 Register0SourceMux(
 );
 
 mux4to1 rd1SourceMux(
-        .switch(2'b00),                            //Add later, output of OFrwarding UNnit (Op1Fwd)
+        .switch(Op1Fwd),                            //output of OFrwarding UNnit (Op1Fwd)
         .input1(rd1Read),
         .input2(ALUOutput), 
         .input3(EXM.out[51:36]),                       //M Stage ALU OUTPUT
@@ -159,7 +178,7 @@ mux4to1 rd1SourceMux(
 );
 
 mux4to1 rd2SourceMux(
-        .switch(2'b00),                            //Add later, output of OFrwarding UNnit (Op2Fwd)
+        .switch(Op2Fwd),                            //output of OFrwarding UNnit (Op2Fwd)
         .input1(rd2Read),
         .input2(ALUOutput),                        //EX STAGE ALU OUTPUT
         .input3(EXM.out[51:36]),                       //M Stage ALU OUTPUT
@@ -168,14 +187,14 @@ mux4to1 rd2SourceMux(
 );
 
 comparator Comparator(
-    .r0(Register0SourceMuxOutput),
-    .op1(rd1Read),
+    .r0(rd1SourceMux.out),
+    .op1(rd1SourceMux.out),
     .CTRL(jumpBranch),
     .PCSrc(PCSrc)
 );
 
 mux2to1 SignOrZeroExtendMux(
-        .switch(aluBType),
+        .switch(aluBType || jumpBranch[0] || jumpBranch[1] || jumpBranch[2]),
         .input1(ID_zeroExtendedConstant),
         .input2(signExtendedImmediate),
         .out(SignOrZeroExtendMuxOutput)
@@ -218,7 +237,7 @@ control ControlUnit(
 );
 
 mux2to1 #(.SIZE(10)) SignalFlushMux (
-        .switch(1'b0),                      
+        .switch(1'b0),//stall),                      
         .input1({regWrite, memToReg, zeroExtendFlag, memWrite, memRead, aluControlOp, aluSrc, aluBType}),
         .input2(10'b0),
         .out(SignalFlushMuxOutput)
